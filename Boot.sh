@@ -1,10 +1,31 @@
 #!/bin/bash
 
-## サーバのアップデートを行う
-# steamcmd +login anonymous +app_update 2394010 validate +quit
+## サーバー設定処理
+setting_path="/root/Steam/steamapps/common/PalServer/DefaultPalWorldSettings.ini"
+option_settings_line=$(grep 'OptionSettings=' "$file_path")
 
-echo "起動スクリプトが実行されました。"
+# 各設定の正規表現パターン
+server_name_pattern='ServerName=.*'
+server_description_pattern='ServerDescription=.*'
+admin_password_pattern='AdminPassword=.*'
+server_password_pattern='ServerPassword=.*'
+defficulty_pattern='Difficulty=.*'
+guild_player_max_num_pattern='GuildPlayerMaxNum=.*'
+coop_player_max_num_pattern='CoopPlayerMaxNum=.*'
+is_multi_play_pattern='bIsMultiplay=.*'
+is_pvp_pattern='bIsPvP=.*'
 
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$server_name_pattern/ServerName=$SERVER_NAME/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$server_description_pattern/ServerDescription=$SERVER_DESCRIPTION/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$admin_password_pattern/AdminPassword=$ADMIN_PASSWORD/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$server_password_pattern/ServerPassword=$SERVER_PASSWORD/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$defficulty_pattern/Difficulty=$DIFFICULTY/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$guild_player_max_num_pattern/GuildPlayerMaxNum=$GUILD_PLAYER_MAX_NUM/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$coop_player_max_num_pattern/CoopPlayerMaxNum=$COOP_PLAYER_MAX_NUM/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$is_multi_play_pattern/bIsMultiplay=$IS_MULTI_PLAY/")
+new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$is_pvp_pattern/bIsPvP=$IS_PVP/")
+
+## サーバー起動処理
 # 環境変数の値を取得
 port_number=${PORT_NUMBER}
 max_player=${MAX_PLAYER}
@@ -55,6 +76,4 @@ if [ "$user_multithread_for_ds" = "TRUE" ]; then
     args="$args -UseMultithreadForDS"
 fi
 
-echo "コマンド引数の取得が完了しました。$args"
-
-~/Steam/steamapps/common/PalServer/PalServer.sh $args
+/root/Steam/steamapps/common/PalServer/PalServer.sh $args
