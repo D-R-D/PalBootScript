@@ -1,8 +1,10 @@
 #!/bin/bash
 
+## ユーザーを設定
+su paluser
+
 ## サーバのアップデートを行う
 steamcmd +login anonymous +app_update 2394010 validate +quit
-
 
 # 環境変数の値を取得
 port_number=${PORT_NUMBER}
