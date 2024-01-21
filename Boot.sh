@@ -1,5 +1,9 @@
 #!/bin/bash
 
+## サーバのアップデートを行う
+steamcmd +login anonymous +app_update 2394010 validate +quit
+
+
 # 環境変数の値を取得
 port_number=${PORT_NUMBER}
 max_player=${MAX_PLAYER}

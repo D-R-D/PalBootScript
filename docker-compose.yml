@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  pal_server:
+    image: zign/palcontainer:v0.1
+    container_name: palserver
+    ports:
+      - "8211:8211/udp"
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+    environment:
+      - TZ=Asia/Tokyo
+      - PORT_NUMBER=8211
+      - MAX_PLAYER=32
+      - USE_PERF_THREADS=TRUE
+      - NO_ASYNC_LOADING_THREAD=TRUE
+      - USER_MULTITHREAD_FOR_DS=TRUE
+    restart: unless-stopped
+    volumes:
+      - setting_volume:/home/paluser/Steam/steamapps/common/PalServer
+
+volumes:
+  setting_volume:
+    driver: local
+    driver_opts:
+      type: 'none'
+      device: ./PalServer
+      o: 'bind'
