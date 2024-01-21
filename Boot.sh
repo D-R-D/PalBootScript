@@ -1,8 +1,5 @@
 #!/bin/bash
 
-## ユーザーを設定
-su paluser
-
 ## サーバのアップデートを行う
 steamcmd +login anonymous +app_update 2394010 validate +quit
 
