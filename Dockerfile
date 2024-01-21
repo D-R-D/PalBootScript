@@ -29,4 +29,6 @@ RUN mkdir -p ~/.steam/sdk64/ \
 # 更新兼ブートスクリプトのダウンロード
 RUN wget https://raw.githubusercontent.com/D-R-D/PalBootScript/main/Boot.sh
 
-CMD ["/bin/bash", "~/Boot.sh"]
+## サーバーをアップデートして起動
+ENTRYPOINT [ "steamcmd", "+login", "anonymous", "+app_update", "2394010", "validate", "+quit" ]
+CMD ["./Boot.sh"]
