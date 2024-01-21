@@ -15,15 +15,28 @@ coop_player_max_num_pattern='CoopPlayerMaxNum=.*'
 is_multi_play_pattern='bIsMultiplay=.*'
 is_pvp_pattern='bIsPvP=.*'
 
+# 設定値をいい感じにする
+is_multi_play='False'
+if [ "$IS_MULTI_PLAY" = "TRUE" ]; then
+    is_multi_play="True"
+fi
+is_pvp='False'
+if [ "$IS_PVP" = "TRUE" ]; then
+    is_pvp='True'
+fi
+
+# 設定ファイルを書き換える
 new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$server_name_pattern/ServerName=$SERVER_NAME/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$server_description_pattern/ServerDescription=$SERVER_DESCRIPTION/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$admin_password_pattern/AdminPassword=$ADMIN_PASSWORD/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$server_password_pattern/ServerPassword=$SERVER_PASSWORD/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$defficulty_pattern/Difficulty=$DIFFICULTY/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$guild_player_max_num_pattern/GuildPlayerMaxNum=$GUILD_PLAYER_MAX_NUM/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$coop_player_max_num_pattern/CoopPlayerMaxNum=$COOP_PLAYER_MAX_NUM/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$is_multi_play_pattern/bIsMultiplay=$IS_MULTI_PLAY/")
-new_option_settings_line=$(echo "$option_settings_line" | sed -E "s/$is_pvp_pattern/bIsPvP=$IS_PVP/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$server_description_pattern/ServerDescription=$SERVER_DESCRIPTION/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$admin_password_pattern/AdminPassword=$ADMIN_PASSWORD/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$server_password_pattern/ServerPassword=$SERVER_PASSWORD/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$defficulty_pattern/Difficulty=$DIFFICULTY/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$guild_player_max_num_pattern/GuildPlayerMaxNum=$GUILD_PLAYER_MAX_NUM/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$coop_player_max_num_pattern/CoopPlayerMaxNum=$COOP_PLAYER_MAX_NUM/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$is_multi_play_pattern/bIsMultiplay=$is_multi_play/")
+new_option_settings_line=$(echo "$new_option_settings_line" | sed -E "s/$is_pvp_pattern/bIsPvP=$is_pvp/")
+
+sed -i "s|${option_settings_line}|${new_option_settings_line}|" "$file_path"
 
 ## サーバー起動処理
 # 環境変数の値を取得
