@@ -27,7 +27,14 @@ RUN mkdir -p ~/.steam/sdk64/ \
     && steamcmd +login anonymous +app_update 1007 +quit \
     && cp ~/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so ~/.steam/sdk64/
 # 更新兼ブートスクリプトのダウンロード
-RUN wget https://raw.githubusercontent.com/D-R-D/PalBootScript/main/Boot.sh
+RUN wget https://raw.githubusercontent.com/D-R-D/PalBootScript/main/Boot.sh \
+    && chmod +x Boot.sh
+# entrypoint.sh を作成
+RUN echo '#!/bin/bash' > entrypoint.sh \
+    && echo 'steamcmd +login anonymous +app_update 2394010 validate +quit' >> entrypoint.sh \
+    && echo 'exec "$@"' >> entrypoint.sh \
+    && chmod +x entrypoint.sh
 
 ## サーバーをアップデートして起動
-CMD bash -c 'steamcmd +login anonymous +app_update 2394010 validate +quit && ./Boot.sh'
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["./Boot.sh"]
