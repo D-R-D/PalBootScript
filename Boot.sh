@@ -7,7 +7,6 @@ option_settings_line=$(grep 'OptionSettings=' "$file_path")
 if [ "$oprion_settings_line" = "" ]; then
     echo "エラー: コンフィファイルが未生成です。"
     echo "./DefaultPalWorldSettings.iniの内容を./Pal/Saved/Config/LinuxServer/PalWorldSettings.iniにコピーしてください。"
-    exit 1
 else 
     # 各設定の正規表現パターン
     server_name_pattern='ServerName=.*'
