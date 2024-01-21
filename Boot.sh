@@ -3,7 +3,7 @@
 ## サーバのアップデートを行う
 # steamcmd +login anonymous +app_update 2394010 validate +quit
 
-echo 起動スクリプトが実行されました。
+echo "起動スクリプトが実行されました。"
 
 # 環境変数の値を取得
 port_number=${PORT_NUMBER}
@@ -55,6 +55,6 @@ if [ "$user_multithread_for_ds" = "TRUE" ]; then
     args="$args -UseMultithreadForDS"
 fi
 
-echo コマンド引数の取得が完了しました。$args
+echo "コマンド引数の取得が完了しました。$args"
 
 ~/Steam/steamapps/common/PalServer/PalServer.sh $args
