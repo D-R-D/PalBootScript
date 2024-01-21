@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## サーバー設定処理
-setting_path="/root/Steam/steamapps/common/PalServer/DefaultPalWorldSettings.ini"
+setting_path="/root/Steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini"
 option_settings_line=$(grep 'OptionSettings=' "$file_path")
 
 # 各設定の正規表現パターン
